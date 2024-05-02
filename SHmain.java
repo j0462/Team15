@@ -1,8 +1,15 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SHmain {
     static Scanner sc = new Scanner(System.in);
+    static Student a = new Student("1", "a");
+    static ArrayList<Subject> list = new ArrayList<>();
+
     public static void main(String[] args) {
+        list.add(Subject.MySQL);
+        a.SetSubjectList(list);
         try {
             displayMainView();
         } catch (Exception e) {
@@ -109,6 +116,12 @@ public class SHmain {
         String studentId = getStudentId(); // 관리할 수강생 고유 번호
         System.out.println("시험 점수를 등록합니다...");
         // 기능 구현
+        String[] strings = a.getExamResultOrUnregistered(0); //미등록, 등록 내용 가져옴
+        System.out.println(Arrays.toString(strings));                  // 스트링 포멧
+        a.registerExamScore(0, 1, 78);           // 점수 등록(과목index, 회차index, 점수)
+        strings = a.getExamResultOrUnregistered(0);          // 미등록, 등록 재갱신
+        System.out.println(Arrays.toString(strings));                  // 결과 확인
+
         System.out.println("\n점수 등록 성공!");
     }
 
@@ -131,5 +144,4 @@ public class SHmain {
     }
 
 }
-
 

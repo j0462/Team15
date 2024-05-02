@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public enum Subject{
     // 필수 과목
     Java(1,"Java", true),
@@ -17,6 +15,7 @@ public enum Subject{
     private final int subjectId;
     private final String subjectName;
     private final boolean isRequired; // 필수 여부
+    static public int[] examResults = new int[10]; // 점수 10회차 결과
 
     // 생성자
     Subject(int subjectId, String subjectName, boolean isRequired) {
@@ -24,6 +23,7 @@ public enum Subject{
         this.subjectName = subjectName;
         this.isRequired = isRequired;
     }
+
     // 과목 아이디 반환 메서드
     public int GetSubjectId() {
         return subjectId;
