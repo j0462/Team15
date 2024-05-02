@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Student {
     private String StudentID;
@@ -13,6 +15,14 @@ public class Student {
     //과목 등록
     public void SetSubjectList(ArrayList<Subject> list) {
         this.subjectList.addAll(list);
+        sortSubjectList();
+    }
+    public void sortSubjectList() {
+        Collections.sort(subjectList, new Comparator<Subject>() {
+            public int compare(Subject subject1, Subject subject2) {
+                return Integer.compare(subject1.GetSubjectId(), subject2.GetSubjectId());
+            }
+        });
     }
     //학생 아이디 반환
     public String GetStudentID(){ return StudentID; }
