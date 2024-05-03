@@ -29,6 +29,7 @@ public class Student {
     }
     //과목 + 점수 생성
     void SetSubjectScoreList(ArrayList<Subject> list){
+        this.subjectScoreList = new ArrayList<>();
         for (Subject subject : list){
             SubjectScore a = new SubjectScore(subject);
             subjectScoreList.add(a);
