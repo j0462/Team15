@@ -15,7 +15,6 @@ public enum Subject{
     private final int subjectId;
     private final String subjectName;
     private final boolean isRequired; // 필수 여부
-    static public int[] examResults = new int[10]; // 점수 10회차 결과
 
     // 생성자
     Subject(int subjectId, String subjectName, boolean isRequired) {
