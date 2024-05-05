@@ -1,8 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class YHmain {
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+
+        Student student1 = new Student("1", "김예현"); // [Test] 학생1 더미 데이터
+        Student student2 = new Student("2", "신민금"); // [Test] 학생2 더미 데이터
+        Student student3 = new Student("3", "황태경"); // [Test] 학생3 더미 데이터
+        Student student4 = new Student("4", "이상헌"); // [Test] 학생4 더미 데이터
+
+        ArrayList<Subject> selectedSubjectList1 = new ArrayList<>(); // [Test] 학생1 과목리스트 더미 데이터
+        ArrayList<Subject> selectedSubjectList2 = new ArrayList<>(); // [Test] 학생2 과목리스트 더미 데이터
+        ArrayList<Subject> selectedSubjectList3 = new ArrayList<>(); // [Test] 학생3 과목리스트 더미 데이터
+        ArrayList<Subject> selectedSubjectList4 = new ArrayList<>(); // [Test] 학생4 과목리스트 더미 데이터
+
+        selectedSubjectList1.addAll(List.of(Subject.MySQL, Subject.Java));
+        selectedSubjectList2.add(Subject.MongoDB);
+        selectedSubjectList3.addAll(List.of(Subject.Redis, Subject.Spring_Security, Subject.Object_oriented));
+        selectedSubjectList4.add(Subject.JPA);
+
+        student1.SetSubjectList(selectedSubjectList1);
+        student2.SetSubjectList(selectedSubjectList2);
+        student3.SetSubjectList(selectedSubjectList3);
+        student4.SetSubjectList(selectedSubjectList4);
+
+
         try {
             displayMainView();
         } catch (Exception e) {
