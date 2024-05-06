@@ -150,6 +150,19 @@ public class YHmain {
         student3.SetSubjectList(selectedSubjectList3);
         student4.SetSubjectList(selectedSubjectList4);
 
+        // 기능 구현 (조회할 특정 과목)
+        System.out.print("등급을 조회할 학생을 선택해 주세요.\n[ ");
+        int i = 0;
+        for (Student student : studentList) {
+            i++;
+            System.out.print(student.GetStudentID() + "." + student.GetStudentName());
+            if (i == studentList.size()) {
+                System.out.print(" ]");
+            } else {
+                System.out.print(" | ");
+            }
+        }
+
         String studentId = getStudentId(); // 관리할 수강생 고유 번호
 
         // 기능 구현
