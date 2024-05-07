@@ -66,9 +66,9 @@ public class Student {
         String[] results = new String[10];
         for (int i = 0; i < 10; i++) {
             if (subjectScoreList.get(subjectindex).getSubjectScore(i) == -1) {
-                results[i] = "미등록";
+                results[i] = (i+1) + ".미등록";
             } else {
-                results[i] = String.valueOf(subjectScoreList.get(subjectindex).getSubjectScore(i));
+                results[i] = (i+1) + String.valueOf("." + subjectScoreList.get(subjectindex).getSubjectScore(i));
             }
         }
         return results;
