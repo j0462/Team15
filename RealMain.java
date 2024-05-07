@@ -283,7 +283,7 @@ public class RealMain {
     private static void inquireRoundGradeBySubject() {
         int selectedStudentId = getStudentId(); // 관리할 수강생 번호
         // 수강생 과목 선택
-        int i = -1; // 여기
+        int i = -1; 
         do {
             System.out.print(students.get(selectedStudentId).GetStudentID() + "번 " + students.get(selectedStudentId).GetStudentName() + " 수강생의 과목 회차 등급을 조회할 과목을 선택해 주세요.\n");
             for (Subject subject : students.get(selectedStudentId).GetSubjectList()) {
