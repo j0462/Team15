@@ -103,7 +103,7 @@ public class YHmain {
     }
 
     private static String getStudentId() {
-        System.out.print("\n관리할 수강생의 번호를 입력하시오...");
+        System.out.print("등급을 조회할 학생을 선택해 주세요.\n[ ");
         return sc.next();
     }
 
@@ -143,14 +143,14 @@ public class YHmain {
         selectedSubjectList3.addAll(List.of(Subject.Redis, Subject.Spring_Security, Subject.Object_oriented));
         selectedSubjectList4.add(Subject.JPA);
 
-        studentList.addAll(List.of(student1, student2, student3, student4));
-
         student1.SetSubjectList(selectedSubjectList1);
         student2.SetSubjectList(selectedSubjectList2);
         student3.SetSubjectList(selectedSubjectList3);
         student4.SetSubjectList(selectedSubjectList4);
 
-        // 기능 구현 (조회할 특정 과목)
+        studentList.addAll(List.of(student1, student2, student3, student4));
+
+        // 수강생 선택
         System.out.print("등급을 조회할 학생을 선택해 주세요.\n[ ");
         int i = 0;
         for (Student student : studentList) {
@@ -163,7 +163,27 @@ public class YHmain {
             }
         }
 
-        String studentId = getStudentId(); // 관리할 수강생 고유 번호
+        String selectedStudentId = sc.next(); // 관리할 수강생 번호
+
+        i = 0;
+        for (Student student : studentList) {
+            if (selectedStudentId.equals(student.GetStudentID())) {
+                System.out.print(student.GetStudentID() + "번 " + student.GetStudentName() + " 수강생의 과목 회차 등급을 조회할 과목을 선택해 주세요.\n[ ");
+
+                for (Subject selectedSubject : student.GetSubjectList()) {
+                    i++;
+                    int subjectId = selectedSubject.GetSubjectId();
+                    System.out.print(subjectId + "." + selectedSubject);
+                    if (i == student.GetSubjectList().size()) {
+                        System.out.print(" ]");
+                    } else {
+                        System.out.print(" | ");
+                    }
+                }
+            }
+        }
+
+
 
         // 기능 구현
         System.out.println("\n등급 조회 성공!");
