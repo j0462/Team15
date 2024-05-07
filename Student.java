@@ -13,6 +13,24 @@ public class Student {
         this.StudentName = StudentName;
         this.subjectList = new ArrayList<>();
     }
+
+    //*************************** tae gyeong
+    //과목 추가
+    public void addSubject(Subject subject) {
+        subjectList.add(subject);
+    }
+
+    //중복 확인
+    public boolean isUnique(int number) {
+        for (int i = 0; i < subjectList.size(); i++) {
+            if (subjectList.get(i).GetSubjectId() == number) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //*****************************
+
     //과목 등록
     public void SetSubjectList(ArrayList<Subject> list) {
         this.subjectList.addAll(list);
