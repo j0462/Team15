@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -46,6 +47,18 @@ public class Student {
         }
     }
 
+//    public void registerExamScore2(int subjectId, int attempt, int score) { // 점수 등록 메소드
+//        for (SubjectScore subjectScore : subjectScoreList) {
+//            if (attempt >= 0 && attempt < 10 && subjectScore.getSubjectId() == subjectId && subjectScore.getSubjectScore(attempt) == 0) {
+//                subjectScore.setSubjectScore(attempt, score);
+//            } else if (attempt < 0 || attempt >= 10) {
+//                System.out.println("유효하지 않은 인덱스입니다.");
+//            } else {
+//                System.out.println("이미 점수가 등록된 인덱스입니다.");
+//            }
+//        }
+//    }
+
     public void updateExamScore(int subjectindex, int index, int newScore) { // 점수 수정 메소드
         if (index >= 0 && index < 10) {
             if (subjectScoreList.get(subjectindex).getSubjectScore(index) != 0) { // 점수가 이미 등록된 것 만 수정 가능
@@ -61,7 +74,11 @@ public class Student {
 
     public String[] getExamResultOrUnregistered(int subjectindex) { //점수 미등록, 등록 알려주는 메소드
         String[] results = new String[10];
+        for (SubjectScore subjectScore : subjectScoreList) {
+            System.out.println(subjectScore.getSubjectName());
+        }
         for (int i = 0; i < 10; i++) {
+            
             if (subjectScoreList.get(subjectindex).getSubjectScore(i) == 0) {
                 results[i] = "미등록";
             } else {
@@ -70,6 +87,25 @@ public class Student {
         }
         return results;
     }
+
+
+    public String[] getExamResultOrUnregistered2(int subjectId) { //점수 미등록, 등록 알려주는 메소드
+        String[] results = new String[10];
+
+        for (SubjectScore subjectScore : subjectScoreList) {
+            if (subjectScore.getSubjectId() == subjectId) {
+                for (int i = 0; i < 10; i++) {
+                    if (subjectScore.getSubjectScore(i) == 0) {
+                        results[i] = (i+1) + ".미등록";
+                    } else {
+                        results[i] = (i+1) + String.valueOf("." + subjectScore.getSubjectScore(i));
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
     //학생 아이디 반환
     public String GetStudentID(){ return StudentID; }
     //학생 이름 반환
