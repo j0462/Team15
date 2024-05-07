@@ -22,6 +22,16 @@ public enum Subject{
         this.subjectName = subjectName;
         this.isRequired = isRequired;
     }
+    //과목 ID로 과목 찾기
+    public static Subject findByCode(int subjectId) {
+        Subject[] subjects = values();
+        for (Subject subject : subjects) {
+            if (subject.GetSubjectId() == subjectId) {
+                return subject;
+            }
+        }
+        return null;
+    }
 
     // 과목 아이디 반환 메서드
     public int GetSubjectId() {

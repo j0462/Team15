@@ -13,6 +13,7 @@ public class Student {
         this.StudentName = StudentName;
         this.subjectList = new ArrayList<>();
     }
+
     //과목 등록
     public void SetSubjectList(ArrayList<Subject> list) {
         this.subjectList.addAll(list);

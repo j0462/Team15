@@ -91,7 +91,56 @@ public class RealMain {
         System.out.println("\n수강생을 등록합니다...");
         System.out.print("수강생 이름 입력: ");
         String studentName = sc.next();
+
         // 기능 구현 (필수 과목, 선택 과목)
+        int studentID = students.size()+1;
+        Student student = new Student(studentID, studentName);
+
+        students.add(student);
+
+        ArrayList<Subject> list = new ArrayList<>();
+        int requiredCount = 0; // 필수 과목 수 카운트
+        int optionalCount = 0; // 선택 과목 수 카운트
+
+        System.out.println("등록할 과목을 숫자로 선택해주세요. 'done'를 입력하면 과목 선택이 완료됩니다.");
+        System.out.println("필수과목: [ 1.JAVA | 2.OOP | 3.Spring | 4.JPA | 5.MySQL ]");
+        System.out.println("선택과목: [ 6.디자인패턴 | 7.Spring Security | 8.Redis | 9.MongoDB]");
+
+        while (true) {
+            String chooseSubject = sc.next();
+            if (chooseSubject.equals("done")) {
+                if (requiredCount < 3 || optionalCount < 2) {
+                    System.out.println("최소 3개 이상의 필수 과목, 2개 이상의 선택 과목을 선택합니다.");
+                    continue;
+                } else {
+                    student.SetSubjectList(list);
+                    break;
+                }
+            }
+
+            try {
+                int subjectNumber = Integer.parseInt(chooseSubject);
+                if (isUnique(list, subjectNumber)) {
+                    Subject subject = Subject.findByCode(subjectNumber);
+                    System.out.println("subject = " + subject);
+                    if (subject.GetisRequired()) {
+                        requiredCount++;
+                    } else {
+                        optionalCount++;
+                    }
+                    list.add(subject);
+                } else {
+                    System.out.println("이미 등록한 과목입니다.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("유효한 과목을 선택하세요.");
+            }
+        }
+
+        System.out.println("수강생 정보:");
+        System.out.println("ID: " + student.GetStudentID());
+        System.out.println("이름: " + student.GetStudentName());
+        System.out.println("수강한 과목: " + student.GetSubjectList());
 
         // 기능 구현
         System.out.println("수강생 등록 성공!\n");
@@ -281,6 +330,15 @@ public class RealMain {
         }
         System.out.println("잘못된 번호 입니다.");
         return -1; //없는 존재
+    }
+
+    private static boolean isUnique(ArrayList<Subject> list, int number) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).GetSubjectId() == number) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
