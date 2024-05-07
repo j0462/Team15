@@ -246,6 +246,5 @@ public class SHmain {
         System.out.println("잘못된 번호 입니다.");
         return -1; //없는 존재
     }
-
 }
 
