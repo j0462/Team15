@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class YHmain {
     static Scanner sc = new Scanner(System.in);
@@ -143,10 +144,14 @@ public class YHmain {
         selectedSubjectList3.addAll(List.of(Subject.Redis, Subject.Spring_Security, Subject.Object_oriented));
         selectedSubjectList4.add(Subject.JPA);
 
+
         student1.SetSubjectList(selectedSubjectList1);
         student2.SetSubjectList(selectedSubjectList2);
         student3.SetSubjectList(selectedSubjectList3);
         student4.SetSubjectList(selectedSubjectList4);
+
+        student1.registerExamScore(0, 0, 80);
+        student1.registerExamScore(1, 1, 90);
 
         studentList.addAll(List.of(student1, student2, student3, student4));
 
@@ -165,6 +170,7 @@ public class YHmain {
 
         String selectedStudentId = sc.next(); // 관리할 수강생 번호
 
+        // 수강생 과목 선택
         i = 0;
         for (Student student : studentList) {
             if (selectedStudentId.equals(student.GetStudentID())) {
@@ -183,7 +189,24 @@ public class YHmain {
             }
         }
 
+        int selectedSubjectId = sc.nextInt(); // 관리할 수강생 과목 번호
 
+        // 수강생 과목 회차 선택
+        i = 0;
+        for (Student student : studentList) {
+            if (selectedStudentId.equals(student.GetStudentID())) {
+
+                for (Subject selectedSubject : student.GetSubjectList()){
+                    if (selectedSubjectId == selectedSubject.GetSubjectId()) {
+                        System.out.println(student.GetStudentID() + "번 " + student.GetStudentName() + " 수강생의 " + selectedSubject + "과목 회차 등급을 조회할 회차를 선택해주세요.");
+
+                        System.out.println(Arrays.toString(student.getExamResultOrUnregistered2(selectedSubjectId)));
+                    }
+                }
+            }
+        }
+
+        int selectedSubjectAttempt = sc.nextInt(); // 관리할 수강생 과목 회차 번호
 
         // 기능 구현
         System.out.println("\n등급 조회 성공!");
