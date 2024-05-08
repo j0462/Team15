@@ -16,9 +16,9 @@ public class SHmain {
         ArrayList<Subject> selectedSubjectList3 = new ArrayList<>(); // [Test] 학생3 과목리스트 더미 데이터
         ArrayList<Subject> selectedSubjectList4 = new ArrayList<>(); // [Test] 학생4 과목리스트 더미 데이터
 
-        selectedSubjectList1.addAll(List.of(Subject.MySQL, Subject.Java));
-        selectedSubjectList2.add(Subject.MongoDB);
-        selectedSubjectList3.addAll(List.of(Subject.Redis, Subject.Spring_Security, Subject.Object_oriented));
+        selectedSubjectList1.addAll(List.of(Subject.MYSQL, Subject.JAVA));
+        selectedSubjectList2.add(Subject.MONGODB);
+        selectedSubjectList3.addAll(List.of(Subject.REDIS, Subject.SPRING_SECURITY, Subject.OBJECT_ORIENTED));
         selectedSubjectList4.add(Subject.JPA);
 
 

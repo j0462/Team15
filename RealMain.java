@@ -4,6 +4,7 @@ import java.util.*;
 public class RealMain {
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Student> students = new ArrayList<>();
+
     public static void main(String[] args) {
         Student student1 = new Student(1, "김예현"); // [Test] 학생1 더미 데이터
         Student student2 = new Student(2, "신민금"); // [Test] 학생2 더미 데이터
@@ -15,11 +16,10 @@ public class RealMain {
         ArrayList<Subject> selectedSubjectList3 = new ArrayList<>(); // [Test] 학생3 과목리스트 더미 데이터
         ArrayList<Subject> selectedSubjectList4 = new ArrayList<>(); // [Test] 학생4 과목리스트 더미 데이터
 
-        selectedSubjectList1.addAll(List.of(Subject.MySQL, Subject.Java));
-        selectedSubjectList2.add(Subject.MongoDB);
-        selectedSubjectList3.addAll(List.of(Subject.Redis, Subject.Spring_Security, Subject.Object_oriented));
+        selectedSubjectList1.addAll(List.of(Subject.MYSQL, Subject.JAVA));
+        selectedSubjectList2.add(Subject.MONGODB);
+        selectedSubjectList3.addAll(List.of(Subject.REDIS, Subject.SPRING_SECURITY, Subject.OBJECT_ORIENTED));
         selectedSubjectList4.add(Subject.JPA);
-
 
         student1.SetSubjectList(selectedSubjectList1);
         student2.SetSubjectList(selectedSubjectList2);
@@ -39,7 +39,8 @@ public class RealMain {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
         }
     }
-    private static void displayMainView() throws InterruptedException{
+
+    private static void displayMainView() throws InterruptedException {
         boolean flag = true;
         while (flag) {
             System.out.println("\n==================================");
@@ -93,7 +94,7 @@ public class RealMain {
         String studentName = sc.next();
 
         // 기능 구현 (필수 과목, 선택 과목)
-        int studentID = students.size()+1;
+        int studentID = students.size() + 1;
         Student student = new Student(studentID, studentName);
 
         students.add(student);
@@ -151,7 +152,7 @@ public class RealMain {
         System.out.println("\n수강생 목록을 조회합니다...");
         // 기능 구현
         for (int i = 0; i < students.size(); i++) {
-            System.out.println(" [ " + (i+1) + ". " + students.get(i).GetStudentName() + " ] ");
+            System.out.println(" [ " + (i + 1) + ". " + students.get(i).GetStudentName() + " ] ");
         }
         System.out.println("\n수강생 목록 조회 성공!");
     }
@@ -190,7 +191,7 @@ public class RealMain {
             }
             System.out.print("\n관리할 수강생의 번호를 입력하시오...");
             a = sc.nextInt();
-        }while(foundStudent(a) == -1);
+        } while (foundStudent(a) == -1);
         return foundStudent(a); // 학생 고유번호 -> 인덱스
     }
 
@@ -198,38 +199,48 @@ public class RealMain {
     private static void createScore() {
         int studentId = getStudentId();
         int SubjectInput = 0;
-        int IndexInput;
         int ScoreInput;
 
-        System.out.println((studentId+1) + "번 " + students.get(studentId).GetStudentName()
-                + " 수강생의 점수를 등록할 과목을 선택해주세요.");
+        int i = -1;
+        do {
+            System.out.println((studentId + 1) + "번 " + students.get(studentId).GetStudentName() + " 수강생의 점수를 등록할 과목을 선택해주세요.");
 
-        // 수강생이 등록한 과목들 출력해주기
-        if (!students.get(studentId).GetSubjectList().isEmpty()) {
-            for (Subject subject : students.get(studentId).GetSubjectList()) {
-                String info = "[" + subject.GetSubjectId() + "." + subject.GetSubjectName() + "]";
-                System.out.print(info);
+            // 수강생이 등록한 과목들 출력해주기
+            if (!students.get(studentId).GetSubjectList().isEmpty()) {
+                for (Subject subject : students.get(studentId).GetSubjectList()) {
+                    String info = "[" + subject.GetSubjectId() + "." + subject.GetSubjectName() + "]";
+                    System.out.print(info);
+                }
+            } else {
+                System.out.println("해당 수강생은 등록되어 있는 과목이 없습니다. \n 메인으로 돌아갑니다.");
             }
-        } else {
-            System.out.println("해당 수강생은 등록되어 있는 과목이 없습니다. \n 메인으로 돌아갑니다.");
-        }
-        SubjectInput = foundSubject(studentId,(sc.nextInt())-1);
-        System.out.println((studentId+1) + "번  " + students.get(studentId).GetStudentName()
-                + " 수강생의 점수를 등록할 과목 "+ students.get(studentId).GetSubjectList().get(SubjectInput) +"의 회차를 선택해주세요.");
-        // 회차당 등록 미등록 여부 띄워주기
-        String[] strings = students.get(studentId).getExamResultOrUnregistered(SubjectInput);
-        System.out.println(Arrays.toString(strings));
+            i = foundSubject(studentId, (sc.nextInt()));
+        } while (i == -1);
 
-        IndexInput = sc.nextInt()-1;
+        int indexInput = -1;
+        do {
+            System.out.println((studentId + 1) + "번  " + students.get(studentId).GetStudentName() + " 수강생의 점수를 등록할 과목 " + students.get(studentId).GetSubjectList().get(i) + "의 회차를 선택해주세요.");
+            // 회차당 등록 미등록 여부 띄워주기
+            String[] strings = students.get(studentId).getExamResultOrUnregistered(i);
+            System.out.println(Arrays.toString(strings));
+            indexInput = sc.nextInt() - 1;
+        } while (indexInput > 10 || indexInput < 0);
 
-        System.out.println((studentId+1) + "번  " + students.get(studentId).GetStudentName()
-                + " 수강생의 점수를 등록할 과목 "+ students.get(studentId).GetSubjectList().get(SubjectInput) +"의 "+ (IndexInput+1) +" 회차 점수를 입력해주세요.");
+        int registScore;
+        do {
+            System.out.println((studentId + 1) + "번  " + students.get(studentId).GetStudentName()
+                    + " 수강생의 점수를 등록할 과목 " + students.get(studentId).GetSubjectList().get(SubjectInput) + "의 " + (indexInput + 1) + " 회차 점수를 입력해주세요.");
+            registScore = sc.nextInt();
+            if (registScore > 100 || registScore < 0) {
+                System.out.println("0~100점 범위를 벗어났습니다.");
+            }
+        } while (registScore > 100 || registScore < 0);
 
-        ScoreInput = sc.nextInt();
 
         // 점수 등록(과목index, 회차index, 점수)
-        students.get(studentId).registerExamScore(SubjectInput, IndexInput, ScoreInput);
+        students.get(studentId).registerExamScore(SubjectInput, indexInput, registScore);
         // 미등록, 등록 재갱신
+        String[] strings = students.get(studentId).getExamResultOrUnregistered(i);
         strings = students.get(studentId).getExamResultOrUnregistered(SubjectInput);
 
         // 점수 등록 후 출력
@@ -247,35 +258,35 @@ public class RealMain {
             }
             System.out.print("\n수정할 과목의 번호를 입력하시오...");
             subjectId = foundSubject(studentId, sc.nextInt());
-        }while(subjectId == -1);
+        } while (subjectId == -1);
 
         int index;
         do {
             System.out.print(Arrays.toString(students.get(studentId).getExamResultOrUnregistered(subjectId)));
             System.out.print("\n수정할 회차의 번호를 입력하시오...");
             index = sc.nextInt();
-            if(index>10 || index<1) {
+            if (index > 10 || index < 1) {
                 System.out.println("존재하지 않는 회차입니다.");
             }
-        }while(index>10 || index<1);
+        } while (index > 10 || index < 1);
 
         int score;
         do {
             System.out.print("새로 입력하실 점수를 입력하시오...");
             score = sc.nextInt();
-            if(score>100 || score<0){
+            if (score > 100 || score < 0) {
                 System.out.println("0~100점 범위를 벗어났습니다.");
             }
-        }while(score>100 || score<0);
+        } while (score > 100 || score < 0);
 
-        students.get(studentId).updateExamScore(subjectId, index-1, score);
+        students.get(studentId).updateExamScore(subjectId, index - 1, score);
     }
 
     // 수강생의 특정 과목 회차별 등급 조회
     private static void inquireRoundGradeBySubject() {
         int selectedStudentId = getStudentId(); // 관리할 수강생 번호
         // 수강생 과목 선택
-        int i = -1;
+        int i = -1; 
         do {
             System.out.print(students.get(selectedStudentId).GetStudentID() + "번 " + students.get(selectedStudentId).GetStudentName() + " 수강생의 과목 회차 등급을 조회할 과목을 선택해 주세요.\n");
             for (Subject subject : students.get(selectedStudentId).GetSubjectList()) {
@@ -283,7 +294,7 @@ public class RealMain {
                 System.out.print(info);
             }
             i = foundSubject(selectedStudentId, sc.nextInt());
-        }while(i == -1);
+        } while (i == -1);
 
         int index = -1;
         do {
@@ -291,11 +302,11 @@ public class RealMain {
             System.out.print(Arrays.toString(students.get(selectedStudentId).getExamResultOrUnregistered(i)));
             System.out.print("\n조회할 회차의 번호를 입력하시오...");
             index = sc.nextInt();
-            if(index>10 || index<1) {
+            if (index > 10 || index < 1) {
                 System.out.println("존재하지 않는 회차입니다.");
             }
-        }while(index>10 || index<1);
-        System.out.println(students.get(selectedStudentId).GetSubjectScoreList().get(i).getSubjectRank(index-1));
+        } while (index > 10 || index < 1);
+        System.out.println(students.get(selectedStudentId).GetSubjectScoreList().get(i).getSubjectRank(index - 1));
         System.out.println("등급 조회 성공!");
     }
 
@@ -308,10 +319,10 @@ public class RealMain {
         });
     }
 
-    private static int foundStudent(int inputNumber){
-        for(int i = 0; i<students.size(); i++){
+    private static int foundStudent(int inputNumber) {
+        for (int i = 0; i < students.size(); i++) {
             Student student = students.get(i);
-            if(student.GetStudentID() == inputNumber){
+            if (student.GetStudentID() == inputNumber) {
                 return i; //찾은경우 인덱스 반환
             }
         }
@@ -322,9 +333,9 @@ public class RealMain {
     private static int foundSubject(int studentid, int inputNumber) {
         Student student = students.get(studentid);
         ArrayList<Subject> subjectList = student.GetSubjectList();
-        for(int i = 0; i<subjectList.size(); i++){
+        for (int i = 0; i < subjectList.size(); i++) {
             Subject subject = subjectList.get(i);
-            if(subject.GetSubjectId() == inputNumber){
+            if (subject.GetSubjectId() == inputNumber) {
                 return i; //찾은 경우 인덱스 반환
             }
         }
