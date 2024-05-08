@@ -213,7 +213,7 @@ public class RealMain {
         } else {
             System.out.println("해당 수강생은 등록되어 있는 과목이 없습니다. \n 메인으로 돌아갑니다.");
         }
-        SubjectInput = (sc.nextInt())-1;
+        SubjectInput = foundSubject(studentId,(sc.nextInt())-1);
         System.out.println((studentId+1) + "번  " + students.get(studentId).GetStudentName()
                 + " 수강생의 점수를 등록할 과목 "+ students.get(studentId).GetSubjectList().get(SubjectInput) +"의 회차를 선택해주세요.");
         // 회차당 등록 미등록 여부 띄워주기

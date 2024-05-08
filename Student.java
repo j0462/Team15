@@ -5,6 +5,7 @@ import java.util.Comparator;
 public class Student {
     private int StudentID;
     private String StudentName;
+    private String Condition; // GREEN, YELLOW, RED 상태
     private ArrayList<Subject> subjectList; //과목정보만
     private ArrayList<SubjectScore> subjectScoreList; //과목정보 + 점수정보
     //학생 생성자
@@ -12,6 +13,14 @@ public class Student {
         this.StudentID = StudentID;
         this.StudentName = StudentName;
         this.subjectList = new ArrayList<>();
+    }
+
+    public void SetCondition(String Condition) {
+        this.Condition = Condition;
+    }
+
+    public String GetCondition() {
+        return this.Condition;
     }
 
     //과목 등록
