@@ -1,16 +1,16 @@
 public enum Subject{
     // 필수 과목
-    Java(1,"Java", true),
-    Object_oriented(2,"객체지향", true),
-    Spring(3,"Spring", true),
+    JAVA(1,"Java", true),
+    OBJECT_ORIENTED(2,"객체지향", true),
+    SPRING(3,"Spring", true),
     JPA(4,"JPA", true),
-    MySQL(5,"MySQL", true),
+    MYSQL(5,"MySQL", true),
 
     // 선택 과목
-    Design_pattern(6,"디자인 패턴", false),
-    Spring_Security(7,"Spring_Security", false),
-    Redis(8,"Redis", false),
-    MongoDB(9,"MongoDB", false);
+    DESIGN_PATTERN(6,"디자인 패턴", false),
+    SPRING_SECURITY(7,"Spring_Security", false),
+    REDIS(8,"Redis", false),
+    MONGODB(9,"MongoDB", false);
 
     private final int subjectId;
     private final String subjectName;
