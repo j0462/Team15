@@ -263,10 +263,9 @@ public class RealMain {
     // 수강생의 과목별 시험 회차 및 점수 등록
     private static void createScore() {
         int studentId = getStudentId();
-        int SubjectInput = 0;
-        int ScoreInput;
 
-        int i = -1;
+
+        int SubjectInput = -1;
         do {
             System.out.println((studentId + 1) + "번 " + students.get(studentId).GetStudentName() + " 수강생의 점수를 등록할 과목을 선택해주세요.");
 
@@ -279,19 +278,19 @@ public class RealMain {
             } else {
                 System.out.println("해당 수강생은 등록되어 있는 과목이 없습니다. \n 메인으로 돌아갑니다.");
             }
-            i = foundSubject(studentId, (sc.nextInt()));
-        } while (i == -1);
+            SubjectInput = foundSubject(studentId, (sc.nextInt()));
+        } while (SubjectInput == -1);
 
         int indexInput = -1;
         do {
-            System.out.println((studentId + 1) + "번  " + students.get(studentId).GetStudentName() + " 수강생의 점수를 등록할 과목 " + students.get(studentId).GetSubjectList().get(i) + "의 회차를 선택해주세요.");
+            System.out.println((studentId + 1) + "번  " + students.get(studentId).GetStudentName() + " 수강생의 점수를 등록할 과목 " + students.get(studentId).GetSubjectList().get(SubjectInput) + "의 회차를 선택해주세요.");
             // 회차당 등록 미등록 여부 띄워주기
-            String[] strings = students.get(studentId).getExamResultOrUnregistered(i);
+            String[] strings = students.get(studentId).getExamResultOrUnregistered(SubjectInput);
             System.out.println(Arrays.toString(strings));
             indexInput = sc.nextInt() - 1;
         } while (indexInput > 10 || indexInput < 0);
 
-        int registScore;
+        int registScore = -1;
         do {
             System.out.println((studentId + 1) + "번  " + students.get(studentId).GetStudentName()
                     + " 수강생의 점수를 등록할 과목 " + students.get(studentId).GetSubjectList().get(SubjectInput) + "의 " + (indexInput + 1) + " 회차 점수를 입력해주세요.");
@@ -305,8 +304,7 @@ public class RealMain {
         // 점수 등록(과목index, 회차index, 점수)
         students.get(studentId).registerExamScore(SubjectInput, indexInput, registScore);
         // 미등록, 등록 재갱신
-        String[] strings = students.get(studentId).getExamResultOrUnregistered(i);
-        strings = students.get(studentId).getExamResultOrUnregistered(SubjectInput);
+        String[] strings = students.get(studentId).getExamResultOrUnregistered(SubjectInput);
 
         // 점수 등록 후 출력
         System.out.println(Arrays.toString(strings));
